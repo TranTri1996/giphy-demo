@@ -1,86 +1,89 @@
-import { useContext, useEffect, useState, useCallback } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
+import { useContext, useEffect, useState } from "react";
 
-import { SearchGif } from "../../components";
-
+import { SearchBar, GifList } from "../../components";
 import { TrendingGifContext } from "../../store";
 import { fetchTrendingGifs } from "../../api";
 
 import "./Home.scss";
 
+const cls = "home";
+
 export const Home = () => {
   const {
     defaultFetchLimit,
     defaultFetchOffset,
-    defaultGifSearched,
+    defaultSearchKeyword,
     trendingGifs: [gifs, setGifs],
   } = useContext(TrendingGifContext);
 
   const [inputText, setInputText] = useState("");
   const [offset, setOffset] = useState(defaultFetchOffset);
 
-  useEffect(() => {
-    const typingTimeout = setTimeout(async () => {
-      if (inputText && inputText.length > 0) {
-        setOffset(defaultFetchOffset);
-        const newGifs = await fetchTrendingGifs({
-          searchText: inputText,
-          offset: defaultFetchOffset,
-          limit: defaultFetchLimit,
-        });
-        setGifs(newGifs);
-      }
-    }, 700);
-    return () => clearTimeout(typingTimeout);
-  }, [inputText, defaultFetchOffset, defaultFetchLimit, setGifs]);
-
-  const handleChangeInput = useCallback((e) => {
-    setInputText(e.target.value);
-  }, []);
-
-  const handleClickSearch = useCallback(async () => {
+  const handleClickSearch = async () => {
     setOffset(defaultFetchOffset);
 
     const newGifs = await fetchTrendingGifs({
-      searchText: inputText,
+      searchText: inputText ? inputText : defaultSearchKeyword,
       offset: defaultFetchOffset,
       limit: defaultFetchLimit,
     });
 
     setGifs(newGifs);
-  }, [defaultFetchOffset, defaultFetchLimit, inputText, setGifs]);
+  };
 
-  const fetchMoreTrendingGifs = () =>
+  useEffect(() => {
+    const fetchDefaultTrendingGifs = async () => {
+      const gifs = await fetchTrendingGifs({
+        offset: defaultFetchOffset,
+        limit: defaultFetchLimit,
+        searchText: defaultSearchKeyword,
+      });
+      setGifs(gifs);
+    };
+    fetchDefaultTrendingGifs();
+  }, []);
+
+  const fetchMoreTrendingGifs = () => {
     setTimeout(async () => {
       const newGifs = await fetchTrendingGifs({
         offset: offset + defaultFetchLimit,
         limit: defaultFetchLimit,
-        searchText: inputText ? inputText : defaultGifSearched,
+        searchText: inputText ? inputText : defaultSearchKeyword,
       });
 
       setGifs((currGifs) => [...currGifs, ...newGifs]);
-
       setOffset(offset + defaultFetchLimit);
     }, 1500);
+  };
+
+  useEffect(() => {
+    const typingTimeout = setTimeout(async () => {
+      if (inputText && inputText.length > 0) {
+        const newGifs = await fetchTrendingGifs({
+          searchText: inputText,
+          offset: defaultFetchOffset,
+          limit: defaultFetchLimit,
+        });
+
+        setGifs(newGifs);
+        setOffset(defaultFetchOffset);
+      }
+    }, 700);
+    return () => clearTimeout(typingTimeout);
+  }, [inputText, defaultFetchOffset, defaultFetchLimit]);
+
+  const handleChangeInput = (e) => {
+    setInputText(e.target.value);
+  };
 
   return (
-    <div className="home">
-      <SearchGif
+    <div className={cls}>
+      <SearchBar
         value={inputText}
         onChange={handleChangeInput}
         onSearch={handleClickSearch}
       />
-      <p>{`Number of gif: ${gifs.length}`}</p>
-      <InfiniteScroll
-        dataLength={gifs.length}
-        next={fetchMoreTrendingGifs}
-        hasMore
-        loader={<h4>Loading...</h4>}
-      >
-        {gifs.map((item) => (
-          <div id={item.id}>{JSON.stringify(item)}</div>
-        ))}
-      </InfiniteScroll>
+      <GifList fetchMore={fetchMoreTrendingGifs} gifs={gifs} />
     </div>
   );
 };
