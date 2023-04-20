@@ -1,16 +1,43 @@
 .gif {
-  border: 1px solid blue;
   display: flex;
-  margin: 1rem;
+  margin: 0.5rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   max-width: 15%;
   min-width: 15rem;
+  min-height: 15rem;
+  position: relative;
+  border-radius: 0.4rem;
 
-  &__title {
-    width: 100%;
+  .title {
+    position: absolute;
+    bottom: 1%;
+    color: white;
+    transform: translate(-8%);
+    width: 85%;
+    margin-bottom: 0.5rem;
+    color: white;
+    text-align: left;
     word-wrap: break-word;
-    text-align: center;
+    z-index: 2;
+    font-weight: bold;
+  }
+
+  .gif-review {
+    position: relative;
+    border-radius: inherit;
+
+    .load-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%);
+      z-index: -1;
+    }
+
+    img {
+      border-radius: inherit;
+    }
   }
 }

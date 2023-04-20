@@ -27,7 +27,7 @@ const getRandomTrendingKey = () => {
 const TrendingGifProvider = ({ children }) => {
   const contextValue = {
     trendingGifs: useState([]),
-    defaultFetchLimit: 15,
+    defaultFetchLimit: 50,
     defaultFetchOffset: 0,
     defaultSearchKeyword: getRandomTrendingKey(),
   };

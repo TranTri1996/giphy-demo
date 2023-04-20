@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
-import { GifDetail } from "../components";
 
-import { Home } from "../pages";
+import { Home, GifDetail } from "../pages";
 
 export const router = createBrowserRouter([
   {

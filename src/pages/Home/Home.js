@@ -23,7 +23,7 @@ export const Home = () => {
     setOffset(defaultFetchOffset);
 
     const newGifs = await fetchTrendingGifs({
-      searchText: inputText ? inputText : defaultSearchKeyword,
+      searchText: inputText,
       offset: defaultFetchOffset,
       limit: defaultFetchLimit,
     });
