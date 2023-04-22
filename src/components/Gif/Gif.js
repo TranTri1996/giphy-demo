@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import Proptypes from "prop-types";
+import classNames from "classnames";
 
 import "./Gif.scss";
 import { useState } from "react";
@@ -11,24 +11,14 @@ const gifTitleCls = "title";
 const loadingSpinnerCls = "load-spinner";
 const gifReviewCls = "gif-review";
 
-export const Gif = ({ data, onClick }) => {
+export const Gif = ({ className, data, onClick }) => {
   const [isLoading, setLoading] = useState(true);
-  let navigate = useNavigate();
-  const handleClickOnGif = () => {
-    navigate(`/gif-detail/${data.id}`);
-  };
-
-  const handleOnLoadGif = () => {
-    setLoading(false);
-  };
-
   const {
-    fixed_height: { height },
-    fixed_width: { width },
+    preview_gif: { url },
   } = data.images;
 
   return (
-    <div className={cls}>
+    <div className={classNames(className, cls)}>
       <p className={gifTitleCls}>{data.title}</p>
       <div className={gifReviewCls}>
         {isLoading && (
@@ -39,18 +29,23 @@ export const Gif = ({ data, onClick }) => {
           />
         )}
         <img
-          height="250px"
-          width="250px"
-          src={data.images.fixed_width.url}
+          height="256px"
+          width="256px"
+          src={url}
           alt="GIF preview"
-          onClick={handleClickOnGif}
-          onLoad={handleOnLoadGif}
+          onClick={() => onClick(data)}
+          onLoad={() => setLoading(false)}
         />
       </div>
     </div>
   );
 };
 
+Gif.defaultProps = {
+  className: "",
+};
+
 Gif.propTypes = {
+  className: Proptypes.string,
   data: Proptypes.object,
 };

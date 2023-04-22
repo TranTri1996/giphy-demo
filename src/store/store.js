@@ -1,39 +1,12 @@
-import React, { useState, createContext } from "react";
+import React, { createContext } from "react";
 
-const TrendingGifContext = createContext([]);
-
-const getRandomTrendingKey = () => {
-  const trendingKeys = [
-    "birthday",
-    "dog",
-    "cat",
-    "girl",
-    "boy",
-    "happy",
-    "sad",
-    "smart",
-    "smile",
-    "good job",
-    "yoloo",
-    "oh my god",
-    "children",
-    "baby",
-    "superman",
-    "superwoman",
-  ];
-  return trendingKeys[Math.floor(Math.random() * trendingKeys.length)];
-};
+const TrendingGifContext = createContext();
 
 const TrendingGifProvider = ({ children }) => {
-  const contextValue = {
-    trendingGifs: useState([]),
-    defaultFetchLimit: 50,
-    defaultFetchOffset: 0,
-    defaultSearchKeyword: getRandomTrendingKey(),
-  };
+  const providedValue = {};
 
   return (
-    <TrendingGifContext.Provider value={contextValue}>
+    <TrendingGifContext.Provider value={providedValue}>
       {children}
     </TrendingGifContext.Provider>
   );

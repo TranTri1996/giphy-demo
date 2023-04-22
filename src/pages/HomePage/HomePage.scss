@@ -1,0 +1,27 @@
+@import "../../styles/styles.scss";
+
+.home-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  min-width: 80rem;
+
+  .toolbar {
+    display: flex;
+    align-items: center;
+    min-width: 45rem;
+
+    .upload-btn {
+      height: 50%;
+      min-height: 3rem;
+      background-color: #0d6efd;
+      color: white;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+  }
+}

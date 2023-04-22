@@ -1,38 +1,38 @@
 .gif {
   display: flex;
-  margin: 0.5rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 15%;
-  min-width: 15rem;
-  min-height: 15rem;
   position: relative;
+  margin: 0.25rem;
+  border: 1px solid #675f5f;
   border-radius: 0.4rem;
 
   .title {
     position: absolute;
-    bottom: 1%;
-    color: white;
-    transform: translate(-8%);
+    bottom: 0%;
+    left: 12%;
+    z-index: 2;
     width: 85%;
     margin-bottom: 0.5rem;
-    color: white;
     text-align: left;
     word-wrap: break-word;
-    z-index: 2;
+    color: white;
     font-weight: bold;
+    transform: translate(-8%);
   }
 
   .gif-review {
     position: relative;
+    width: inherit;
+    height: 16rem;
     border-radius: inherit;
 
     .load-spinner {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%);
+      top: 44%;
+      left: 47%;
+      color: white;
       z-index: -1;
     }
 

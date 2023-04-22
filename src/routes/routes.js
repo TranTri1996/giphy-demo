@@ -1,14 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import { Home, GifDetail } from "../pages";
+import { HomePage, UploadPage } from "../pages";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <HomePage />,
   },
   {
-    path: "gif-detail/:gifId",
-    element: <GifDetail />,
+    path: "upload/",
+    element: <UploadPage />,
   },
 ]);

@@ -1,2 +1,2 @@
-export * from "./fetchTrendingGifs";
-export * from "./fetchGifDetail";
+export * from "./fetchNewGifs";
+export * from "./uploadGif";
