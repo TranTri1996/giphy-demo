@@ -10,7 +10,7 @@ import { SearchBar, GifList, ExpandGifModal } from "../../components";
 
 import "./HomePage.scss";
 
-const DEFAULT_LIMIT = 25;
+const DEFAULT_LIMIT = 25 ;
 const DEFAULT_OFFSET = 0;
 
 const cls = "home-page";
@@ -22,7 +22,7 @@ export const HomePage = ({ className }) => {
 
   const [gifs, setGifs] = useState([]);
   const [inputText, setInputText] = useState("");
-  const [expandedGif, setExpandedGif] = useState();
+  const [expandedGif , setExpandedGif ] = useState();
   const [hasMoreGif, setHasMoreGif] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const [offset, setOffset] = useState(DEFAULT_OFFSET);
