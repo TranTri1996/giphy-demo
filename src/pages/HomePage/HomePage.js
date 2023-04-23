@@ -21,6 +21,7 @@ export const HomePage = ({ className }) => {
   const navigate = useNavigate();
 
   const [gifs, setGifs] = useState([]);
+  const [unuse, setUnuse] = useState();
   const [inputText, setInputText] = useState("");
   const [expandedGif, setExpandedGif] = useState();
   const [hasMoreGif, setHasMoreGif] = useState(true);
