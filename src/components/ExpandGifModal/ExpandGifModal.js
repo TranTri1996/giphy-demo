@@ -35,6 +35,9 @@ export const ExpandGifModal = ({
           )}
         </ModalBody>
         <ModalFooter>
+          <a href={gif?.images && gif.images.fixed_width.url}>
+            <Button color="primary">Details On GIPHY</Button>
+          </a>
           <Button color="primary" onClick={toggleModal}>
             Close
           </Button>

@@ -6,6 +6,7 @@ import { Gif } from "../Gif";
 import "./GifList.scss";
 
 const cls = "gifs";
+const notFoundMessageCls = `not-found-msg`;
 
 export const GifList = ({ className, gifs, fetchMore, expandGif, hasMore }) => {
   const renderLoadingIcon = () => {
@@ -14,16 +15,23 @@ export const GifList = ({ className, gifs, fetchMore, expandGif, hasMore }) => {
 
   return (
     <div className={classNames(className, cls)}>
-      <InfiniteScroll
-        dataLength={gifs.length}
-        next={fetchMore}
-        hasMore={hasMore}
-        loader={renderLoadingIcon()}
-      >
-        {gifs.map((item, index) => (
-          <Gif key={`${item.id}-${index}`} data={item} onClick={expandGif} />
-        ))}
-      </InfiniteScroll>
+      {hasMore && (
+        <InfiniteScroll
+          dataLength={gifs.length}
+          next={fetchMore}
+          hasMore={hasMore}
+          loader={renderLoadingIcon()}
+        >
+          {gifs.map((item, index) => (
+            <Gif key={`${item.id}-${index}`} data={item} onClick={expandGif} />
+          ))}
+        </InfiniteScroll>
+      )}
+      {!hasMore && (
+        <p className={notFoundMessageCls}>
+          There is no gif to be found
+        </p>
+      )}
     </div>
   );
 };

@@ -5,14 +5,13 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 import { fetchNewGifs } from "../../api";
+import { getRandomSearchKey } from "../../utils";
 import { SearchBar, GifList, ExpandGifModal } from "../../components";
 
 import "./HomePage.scss";
-import { getRandomSearchKey } from "../../utils";
 
-const DEFAULT_LIMIT = 20;
+const DEFAULT_LIMIT = 25;
 const DEFAULT_OFFSET = 0;
-const DEFAULT_SEARCH_KEYWORD = getRandomSearchKey();
 
 const cls = "home-page";
 const tooBarCls = "toolbar";
@@ -24,6 +23,7 @@ export const HomePage = ({ className }) => {
   const [gifs, setGifs] = useState([]);
   const [inputText, setInputText] = useState("");
   const [expandedGif, setExpandedGif] = useState();
+  const [hasMoreGif, setHasMoreGif] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const [offset, setOffset] = useState(DEFAULT_OFFSET);
 
@@ -32,7 +32,7 @@ export const HomePage = ({ className }) => {
       const gifs = await fetchNewGifs({
         offset: DEFAULT_OFFSET,
         limit: DEFAULT_LIMIT,
-        searchText: DEFAULT_SEARCH_KEYWORD,
+        searchText: getRandomSearchKey(),
       });
       setGifs(gifs);
     };
@@ -54,6 +54,10 @@ export const HomePage = ({ className }) => {
     return () => clearTimeout(typingTimeout);
   }, [inputText]);
 
+  useEffect(() => {
+    setHasMoreGif(gifs.length > 0);
+  }, [gifs]);
+
   const handleClickSearch = async () => {
     setOffset(DEFAULT_OFFSET);
 
@@ -62,7 +66,6 @@ export const HomePage = ({ className }) => {
       offset: DEFAULT_OFFSET,
       limit: DEFAULT_LIMIT,
     });
-
     setGifs(newGifs);
   };
 
@@ -71,7 +74,7 @@ export const HomePage = ({ className }) => {
       const newGifs = await fetchNewGifs({
         offset: offset + DEFAULT_LIMIT,
         limit: DEFAULT_LIMIT,
-        searchText: inputText ? inputText : DEFAULT_SEARCH_KEYWORD,
+        searchText: inputText ? inputText : getRandomSearchKey(),
       });
       setGifs((currGifs) => [...currGifs, ...newGifs]);
       setOffset(offset + DEFAULT_LIMIT);
@@ -110,6 +113,7 @@ export const HomePage = ({ className }) => {
       />
       <GifList
         gifs={gifs}
+        hasMore={hasMoreGif}
         fetchMore={fetchMoreGifs}
         expandGif={handleExpandGif}
       />

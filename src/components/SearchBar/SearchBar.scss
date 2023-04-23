@@ -17,6 +17,10 @@
     float: left;
     position: relative;
     font-size: 1rem;
+
+    &:focus {
+      box-shadow: none;
+    }
   }
 
   &__button {
