@@ -35,7 +35,7 @@ export const UploadPage = ({ className }) => {
         setLoading(false);
         console.log(res);
       })
-      .catch((e) => {
+      .catch(() => {
         setLoading(false);
         setUploadErrorMsg("Fail when upload GIF!");
       });

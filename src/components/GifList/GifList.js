@@ -28,9 +28,7 @@ export const GifList = ({ className, gifs, fetchMore, expandGif, hasMore }) => {
         </InfiniteScroll>
       )}
       {!hasMore && (
-        <p className={notFoundMessageCls}>
-          There is no gif to be found
-        </p>
+        <p className={notFoundMessageCls}>There is no gif to be found</p>
       )}
     </div>
   );
@@ -43,6 +41,7 @@ GifList.defaultProps = {
 };
 
 GifList.propTypes = {
+  className: PropTypes.string,
   hasMore: PropTypes.bool,
   fetchMore: PropTypes.func.isRequired,
   expandGif: PropTypes.func.isRequired,

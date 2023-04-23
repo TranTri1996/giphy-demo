@@ -1,5 +1,5 @@
 import React, { createContext } from "react";
-
+import PropTypes from "prop-types";
 const TrendingGifContext = createContext();
 
 const TrendingGifProvider = ({ children }) => {
@@ -10,6 +10,10 @@ const TrendingGifProvider = ({ children }) => {
       {children}
     </TrendingGifContext.Provider>
   );
+};
+
+TrendingGifProvider.propTypes = {
+  children: PropTypes.node,
 };
 
 export { TrendingGifContext, TrendingGifProvider };

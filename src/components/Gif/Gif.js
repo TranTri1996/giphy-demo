@@ -48,4 +48,5 @@ Gif.defaultProps = {
 Gif.propTypes = {
   className: Proptypes.string,
   data: Proptypes.object,
+  onClick: Proptypes.func,
 };

@@ -1,4 +1,4 @@
-import { useRouteError, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button } from "reactstrap";
 import classNames from "classnames";
 import PropTypes from "prop-types";
@@ -10,10 +10,7 @@ const wrapperErrCls = "error-wrapper";
 const backBtnCls = `${wrapperErrCls}__back-btn`;
 
 export const ErrorPage = ({ className }) => {
-  const error = useRouteError();
   const navigate = useNavigate();
-
-  console.error(error);
 
   const backToHomePage = () => {
     navigate("/");

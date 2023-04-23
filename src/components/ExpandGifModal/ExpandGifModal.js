@@ -23,19 +23,19 @@ export const ExpandGifModal = ({
         toggle={toggleModal}
         className={modalWrapperCls}
       >
-        <ModalHeader>{gif?.title}</ModalHeader>
+        <ModalHeader>{gif && gif.title}</ModalHeader>
         <ModalBody>
-          {gif?.images && (
+          {gif && gif.images && (
             <img
               height={height}
               width={width}
               src={gif.images.fixed_width.url}
-              alt={gif?.title ?? "GIF detail"}
+              alt={gif && gif.title && "GIF detail"}
             />
           )}
         </ModalBody>
         <ModalFooter>
-          <a href={gif?.images && gif.images.fixed_width.url}>
+          <a href={gif && gif.images && gif.images.fixed_width.url}>
             <Button color="primary">Details On GIPHY</Button>
           </a>
           <Button color="primary" onClick={toggleModal}>
@@ -55,6 +55,7 @@ ExpandGifModal.defaultProps = {
 };
 
 ExpandGifModal.propTypes = {
+  className: PropTypes.string,
   height: PropTypes.string,
   width: PropTypes.string,
   isOpen: PropTypes.bool.isRequired,
